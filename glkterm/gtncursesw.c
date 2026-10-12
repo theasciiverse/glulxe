@@ -92,7 +92,7 @@ int local_mvaddnwstr(int y, int x, const wchar_t *wstr, int n)
 #else /* LOCAL_NCURSESW */
 
 #define _XOPEN_SOURCE_EXTENDED /* ncursesw *wch* and *wstr* functions */
-#include <ncursesw/ncurses.h>
+#include <curses.h>
 
 int local_get_wch (wint_t *ch)
 {
