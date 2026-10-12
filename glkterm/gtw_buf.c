@@ -88,6 +88,7 @@ window_textbuffer_t *win_textbuffer_create(window_t *win)
     dwin->scrollline = 0;
     dwin->scrollpos = 0;
     dwin->lastseenline = 0;
+    dwin->seenpos = -1;
     dwin->drawall = TRUE;
     
     dwin->width = -1;
@@ -159,6 +160,19 @@ void win_textbuffer_rearrange(window_t *win, grect_t *box)
     dwin->height = box->bottom - box->top;
     
     if (oldwid != dwin->width) {
+        /* All the text is about to be re-wrapped, and replace_lines() will
+            then count every line as unseen (lastseenline goes back to 0):
+            the window would page from its first line and swallow the next
+            key. Remember how far the player had read, as a character
+            position, for updatetext() to restore after the re-wrap. */
+        if (dwin->seenpos == -1) {
+            if (dwin->lastseenline < dwin->numlines)
+                dwin->seenpos = dwin->lines[dwin->lastseenline].pos;
+            else
+                dwin->seenpos = dwin->numchars;
+            if (dwin->dirtybeg != -1 && dwin->dirtybeg < dwin->seenpos)
+                dwin->seenpos = dwin->dirtybeg;
+        }
         /* Set dirty region to the whole (or visible?), and
             delta should indicate that the whole old region is changed. */
         if (dwin->dirtybeg == -1) {
@@ -573,6 +587,13 @@ static void updatetext(window_textbuffer_t *dwin)
         
         replace_lines(dwin, lnbeg, lnend, numtmplines);
         lndelta = numtmplines - (lnend-lnbeg);
+
+        if (dwin->seenpos != -1) {
+            /* Re-wrapped to a new width; see win_textbuffer_rearrange(). */
+            long lx = find_line_by_pos(dwin, dwin->seenpos);
+            dwin->lastseenline = (lx < 0) ? 0 : lx;
+            dwin->seenpos = -1;
+        }
         
         drawbeg = lnbeg;
         if (lndelta == 0) {
@@ -775,6 +796,7 @@ void win_textbuffer_clear(window_t *win)
     dwin->scrollline = 0;
     dwin->scrollpos = 0;
     dwin->lastseenline = 0;
+    dwin->seenpos = -1;
     dwin->drawall = TRUE;
 }
 

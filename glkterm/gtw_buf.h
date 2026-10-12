@@ -79,6 +79,8 @@ typedef struct window_textbuffer_struct {
     long scrollline;
     long scrollpos;
     long lastseenline;
+    long seenpos; /* While a re-wrap is pending: the text before this
+        character position had been seen. Otherwise -1. */
     
     /* The following are meaningful only for the current line input request. */
     void *inbuf; /* char* or glui32*, depending on inunicode. */
