@@ -348,8 +348,8 @@ frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode,
     /* If there is no dot-suffix, add a standard one. */
     val = strlen(newbuf);
     gotdot = FALSE;
-    while (val && (buf[val-1] != '/')) {
-        if (buf[val-1] == '.') {
+    while (val && (newbuf[val-1] != '/')) {
+        if (newbuf[val-1] == '.') {
             gotdot = TRUE;
             break;
         }
