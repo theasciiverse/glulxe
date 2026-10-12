@@ -1,0 +1,40 @@
+# System packages (.deb, .rpm, .apk, Arch) for glulxe, built by nfpm from
+# the same static binary as the av archive. The release workflow sets
+# VERSION, RELEASE (our packaging release) and ARCH (amd64 or arm64).
+#
+# No .desktop file on purpose: av is the one place titles are started from,
+# so Asciiverse packages never add menu entries (asciiverse/CLAUDE.md).
+#
+# Named glulxe-asciiverse so it never collides with a distribution's own
+# glulxe package; it installs the same glulxe command and conflicts with it.
+name: glulxe-asciiverse
+arch: ${ARCH}
+platform: linux
+version: ${VERSION}
+release: ${RELEASE}
+section: games
+priority: optional
+maintainer: Asciiverse <packages@asciiverse.sh>
+vendor: Asciiverse
+homepage: https://github.com/theasciiverse/glulxe
+license: MIT
+conflicts: [glulxe]
+provides: [glulxe]
+description: |
+  Interpreter for Glulx interactive fiction, in the terminal.
+  Plays Glulx stories (.ulx and .gblorb), most of them written in Inform 7,
+  with Unicode text and status windows. A static build of Andrew Plotkin's
+  glulxe and GlkTerm, packaged by Asciiverse.
+contents:
+  - src: glulxe
+    dst: /usr/bin/glulxe
+    file_info: { mode: 0755 }
+  - src: LICENSE
+    dst: /usr/share/doc/glulxe-asciiverse/copyright
+    file_info: { mode: 0644 }
+  - src: glkterm/LICENSE
+    dst: /usr/share/doc/glulxe-asciiverse/LICENSE-glkterm
+    file_info: { mode: 0644 }
+  - src: README.md
+    dst: /usr/share/doc/glulxe-asciiverse/README.md
+    file_info: { mode: 0644 }

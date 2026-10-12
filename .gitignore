@@ -1,2 +1,6 @@
 *.o
 glulxe
+
+# Asciiverse packaging scratch
+/stage/
+/dist/
