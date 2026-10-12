@@ -951,6 +951,8 @@ void win_textbuffer_set_paging(window_t *win, int forcetoend)
         && dwin->lastseenline - 0 < dwin->numlines - dwin->height) {
         /* scroll lastseenline to top, stick there */
         val = dwin->lastseenline - 1;
+        if (val < 0)
+            val = 0;
     }
     else {
         /* scroll to bottom, set lastseenline to end. */
