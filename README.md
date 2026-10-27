@@ -1,3 +1,16 @@
+> **Play it with Asciiverse.** With [av](https://asciiverse.sh), the Asciiverse
+> client:
+>
+> ```
+> av install glulxe
+> av play glulxe
+> ```
+>
+> Or download the archive for your system from this repository's Releases,
+> unpack it and run `./glulxe` (`glulxe.exe` on Windows).
+>
+> The original README follows.
+
 # Glulxe: the Glulx VM interpreter
 
 - Version 0.6.1

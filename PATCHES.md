@@ -65,3 +65,9 @@ and data files land next to the story instead of in the current directory.
 
 - Windows: GlkTerm is a curses library for Unix terminals.
 - glulxdump, the profiler and the debugger (`VM_DEBUGGER`, needs libxml2).
+
+## Ours
+
+- **How to play it, at the top of README.md.** A short note on installing and
+  starting it with av, or from a release archive; the original text follows
+  unchanged.
