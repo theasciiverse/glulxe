@@ -6,9 +6,6 @@
 > av play glulxe
 > ```
 >
-> Or download the archive for your system from this repository's Releases,
-> unpack it and run `./glulxe`.
->
 > The original README follows.
 
 # Glulxe: the Glulx VM interpreter
